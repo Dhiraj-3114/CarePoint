@@ -107,14 +107,22 @@ const updateProfile = async (req, res) => {
 
        await userModel.findByIdAndUpdate(userId, {name, phone, address:JSON.parse(address), dob, gender})
 
-       if (imageFile) {
+    //    if (typeof imageFile === 'string' && imageFile.startsWith('data:image')) {
 
-            const imageUpload = await cloudinary.uploader.upload(imageFile.path, {resource_type:'image'})
-            const imageURL = imageUpload.secure_url
+    //         const imageUpload = await cloudinary.uploader.upload(imageFile.path, {resource_type:'image'})
+    //         const imageURL = imageUpload.secure_url
 
-            await userModel.findByIdAndUpdate(userId, {image: imageURL}) 
+    //         await userModel.findByIdAndUpdate(userId, {image: imageURL}) 
 
-       }
+    //    }
+
+        if (imageFile) {
+            const imageUpload = await cloudinary.uploader.upload(imageFile.path, {resource_type: 'image'})
+
+            const imageURL = imageUpload.secure_url;
+
+            await userModel.findByIdAndUpdate(userId, { image: imageURL });
+        }
 
        res.json({success: true, message: "Profile Updated !!"})
 
