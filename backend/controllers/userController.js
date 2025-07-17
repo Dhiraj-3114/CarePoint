@@ -80,7 +80,8 @@ const getProfile = async (req, res) => {
 
     try {
         
-        const {userId} = req.body 
+        // const {userId} = req.body 
+        const userId = req.userId
         const userData = await userModel.findById(userId).select('-password') 
 
         res.json({success:true, userData}) 
@@ -98,23 +99,23 @@ const updateProfile = async (req, res) => {
     try {
         
         const userId = req.userId
-       const {name, phone, address, dob, gender} = req.body
-       const imageFile = req.file
+        const {name, phone, address, dob, gender} = req.body
+        const imageFile = req.file
 
-       if (!name || !phone || !dob || !gender) {
-            return res.json({success: false, message: "Required data is missing !!"})
-       }
+        if (!name || !phone || !dob || !gender) {
+                return res.json({success: false, message: "Required data is missing !!"})
+        }
 
-       await userModel.findByIdAndUpdate(userId, {name, phone, address:JSON.parse(address), dob, gender})
+        await userModel.findByIdAndUpdate(userId, {name, phone, address:JSON.parse(address), dob, gender})
 
-    //    if (typeof imageFile === 'string' && imageFile.startsWith('data:image')) {
+        //    if (typeof imageFile === 'string' && imageFile.startsWith('data:image')) {
 
-    //         const imageUpload = await cloudinary.uploader.upload(imageFile.path, {resource_type:'image'})
-    //         const imageURL = imageUpload.secure_url
+        //         const imageUpload = await cloudinary.uploader.upload(imageFile.path, {resource_type:'image'})
+        //         const imageURL = imageUpload.secure_url
 
-    //         await userModel.findByIdAndUpdate(userId, {image: imageURL}) 
+        //         await userModel.findByIdAndUpdate(userId, {image: imageURL}) 
 
-    //    }
+        //    }
 
         if (imageFile) {
             const imageUpload = await cloudinary.uploader.upload(imageFile.path, {resource_type: 'image'})
