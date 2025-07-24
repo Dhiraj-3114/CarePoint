@@ -8,5 +8,10 @@ export default defineConfig({
     react(), 
     tailwindcss(),
   ],
-  server:{port: process.env.PORT || 5173}, 
+  server:{port: 5173}, 
+  preview: {
+    allowedHosts: ['doctor-frontend-vooq.onrender.com'],
+    host: '0.0.0.0',
+    port: process.env.PORT || 5173,
+  }
 })
