@@ -8,5 +8,10 @@ export default defineConfig({
     react(),
     tailwindcss(),
   ],
-  server:{port: process.env.PORT || 5174}, 
+  server:{port: 5174}, 
+  preview: {
+    allowedHosts: ['doctor-appointment-booking-system-5.onrender.com'],
+    host: '0.0.0.0',
+    port: process.env.PORT || 5174,
+  }
 })
