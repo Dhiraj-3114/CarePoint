@@ -65,11 +65,11 @@ const MyAppointments = () => {
       amount: order.amount,
       currency: order.currency,
       name: 'Appointment Payment',
-      description: 'Payment for appointment booking',
+      description: 'Appointment Payment',
       order_id: order.id,
       receipt: order.receipt,
       handler: async (response) => {
-        
+        // console.log(response) 
         try {
           
           const {data} = await axios.post(backendUrl + '/api/user/verifyRazorpay', response, {headers: {token}}) 
@@ -93,7 +93,7 @@ const MyAppointments = () => {
 
   const appointmentRazorpay = async (appointmentId) => {
 
-    try {
+    try { 
       
       const {data} = await axios.post(backendUrl + '/api/user/payment-razorpay', {appointmentId}, {headers: {token}})
       

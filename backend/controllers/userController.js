@@ -5,6 +5,7 @@ import jwt from 'jsonwebtoken'
 import {v2 as cloudinary} from 'cloudinary'
 import doctorModel from '../models/doctorModel.js'
 import appointmentModel from '../models/appointmentModel.js'
+import razorpay from 'razorpay'
 import Razorpay from 'razorpay'
 
 
@@ -264,8 +265,8 @@ const paymentRazorpay = async (req, res) => {
 
         const options = {
             amount: appointmentData.amount * 100, 
-            currency: process.env.CURRENCY || 'INR',
-            receipt: `receipt_${appointmentId}`,
+            currency: process.env.CURRENCY,
+            receipt: appointmentId,
         }
 
         const order = await razorpayInstance.orders.create(options)
