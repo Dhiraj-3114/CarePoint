@@ -10,7 +10,7 @@ export default defineConfig({
   ],
   server:{port: 5174}, 
   preview: {
-    allowedHosts: ['doctor-appointment-booking-system-5.onrender.com'],
+    allowedHosts: ['doctor-appointment-booking-system-8.onrender.com'],
     host: '0.0.0.0',
     port: process.env.PORT || 5174,
   }
