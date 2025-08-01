@@ -42,7 +42,7 @@ This is a **Doctor Appointment Booking System** built using the **MERN Stack** (
 - View appointment history
 - Online payment support
 
-### 🩺 Doctor Side
+###  Doctor Side
 - Login & Dashboard
 - View appointments
 - View and edit doctor profile
