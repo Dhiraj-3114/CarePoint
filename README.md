@@ -128,6 +128,6 @@ VITE_BACKEND_URL=your_backend_url
 
 ## 🙌 Author
 #### Dhiraj Patel
-🌐 GitHub Profile
+[🌐 GitHub Profile](https://github.com/Dhiraj-3114)
 
 ---
