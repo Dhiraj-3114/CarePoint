@@ -219,6 +219,7 @@ const bookAppointment = async (req, res) => {
                 <p>Your appointment with <b>${docData.name}</b> has been booked.</p>
                 <p><strong>Date:</strong> ${slotDate}</p>
                 <p><strong>Time:</strong> ${slotTime}</p>
+                <p><strong>Address:</strong> ${docData.address.line1} - ${docData.address.line2} </p>
                 <p>Fees: ₹${docData.fees}</p>
                 <p>Thank you for using our platform.</p> 
             `
