@@ -7,6 +7,7 @@ import doctorModel from '../models/doctorModel.js'
 import appointmentModel from '../models/appointmentModel.js'
 import razorpay from 'razorpay'
 import Razorpay from 'razorpay'
+import sendEmail from '../utils/sendEmail.js' 
 
 
 const registerUser = async (req, res) => {
@@ -40,6 +41,17 @@ const registerUser = async (req, res) => {
 
         const token = jwt.sign({id:user._id}, process.env.JWT_SECRET)
 
+        await sendEmail({
+            to: email,
+            subject: 'Welcome to CarePoint',
+            html: `
+                <h2>Hello ${name},</h2>
+                <p>Welcome to the CarePoint.</p>
+                <p>Your account has been created successfully.</p>
+                <p>Login and start booking appointments easily!</p>
+            `
+        })
+
         res.json({success: true, token}) 
 
     } catch (error) {
@@ -47,7 +59,6 @@ const registerUser = async (req, res) => {
         res.json({success:false, message:error.message})
     }
 }
-
 
 // user login function
 
@@ -65,8 +76,22 @@ const loginUser = async (req, res) => {
         const isMatch = await bcrypt.compare(password, user.password)
 
         if(isMatch) {
+
             const token = jwt.sign({id:user._id}, process.env.JWT_SECRET)
+
+            await sendEmail({
+                to: email,
+                subject: 'Login Notification',
+                html: `
+                <h2>Login Successful</h2>
+                <p>Hello <b>${user.name}</b>,</p>
+                <p>You have successfully logged in to your CarePoint account.</p>
+                <p>Thank you for using our service!</p>
+                `
+            })
+
             res.json({success: true, token}) 
+
         } else {
             res.json({success: false, message:"Invalid credentials"}) 
         }
@@ -185,9 +210,22 @@ const bookAppointment = async (req, res) => {
         await newAppointment.save() 
 
         await doctorModel.findByIdAndUpdate(docId, {slots_booked})
+
+        await sendEmail({
+            to: userData.email,
+            subject: 'Appointment Booked Successfully',
+            html: `
+                <h2>Hello ${userData.name},</h2>
+                <p>Your appointment with <b>${docData.name}</b> has been booked.</p>
+                <p><strong>Date:</strong> ${slotDate}</p>
+                <p><strong>Time:</strong> ${slotTime}</p>
+                <p>Fees: ₹${docData.fees}</p>
+                <p>Thank you for using our platform.</p> 
+            `
+        }) 
+
         res.json({success: true, message: 'Appointment Booked !!'})
          
-
     } catch (error) {
         console.log(error);
         res.json({success:false, message:error.message})  
@@ -235,6 +273,17 @@ const cancelAppointment = async (req, res) => {
         slots_booked[slotDate] = slots_booked[slotDate].filter(e => e !== slotTime)
 
         await doctorModel.findByIdAndUpdate(docId, {slots_booked})
+
+        const userData = await userModel.findById(userId);
+        await sendEmail({
+            to: userData.email,
+            subject: 'Appointment Cancelled',
+            html: `
+                <h2>Hello ${userData.name},</h2>
+                <p>Your appointment with <b>${doctorData.name}</b> on <b>${slotDate}</b> at <b>${slotTime}</b> has been cancelled.</p>
+                <p>If this was a mistake, please book a new appointment.</p>
+            `
+        })
 
         res.json({success: true, message: 'Appointment Cancelled !!'})
         
