@@ -172,6 +172,15 @@ const bookAppointment = async (req, res) => {
         const userId = req.userId
         const {docId, slotDate, slotTime} = req.body
 
+        const [day, month, year] = slotDate.split('/').map(Number)
+        const dateObj = new Date(year, month - 1, day)
+        if (dateObj.getDay() === 0) {
+            return res.json({
+                success: false,
+                message: 'Appointments cannot be booked on Sundays.'
+            })
+        }
+
         const docData = await doctorModel.findById(docId).select('-password')
 
         if (!docData.available) {

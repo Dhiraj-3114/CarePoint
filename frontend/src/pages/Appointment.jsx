@@ -32,6 +32,8 @@ const Appointment = () => {
       let currentDate = new Date(today)
       currentDate.setDate(today.getDate() + i)
 
+      if (currentDate.getDay() === 0) continue; // Skip Sunday 
+
       let endTime = new Date()
       endTime.setDate(today.getDate() + i)
       endTime.setHours(21, 0, 0, 0)
