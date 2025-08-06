@@ -62,7 +62,7 @@ This is a **Doctor Appointment Booking System** built using the **MERN Stack** (
 
 ### Clone this repository
 ```bash
-git clone https://github.com/your-username/doctor-appointment-booking-system.git
+git clone https://github.com/Dhiraj-3114/CarePoint.git
 cd CarePoint
 ```
 
@@ -84,6 +84,8 @@ JWT_SECRET=your_jwt_secret
 RAZORPAY_KEY_ID=your_razorpay_key_id
 RAZORPAY_KEY_SECRET=your_razorpay_key_secret
 CURRENCY=INR
+MAIL_USER=your_mail
+MAIL_PASSWORD=your_mail_password
 ```
 
 ### Run backend server:

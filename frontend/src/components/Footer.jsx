@@ -8,7 +8,7 @@ const Footer = () => {
             {/* ---------- left section ---------- */}
             <div>
                 <img className='mb-3 w-35' src={assets.logo_2} alt="" />
-                <p className='w-full md:w-2/3 text-gray-600 leading-6'>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.</p>
+                <p className='w-full md:w-2/3 text-gray-600 leading-6'>CarePoint Healthcare is committed to providing easy and reliable access to quality medical care. Our platform connects patients with trusted doctors for consultations, ensuring a seamless appointment booking experience. We prioritize your health by offering personalized care, secure services, and timely support—all from the comfort of your home.</p>
             </div>
 
             {/* ---------- middle section ---------- */}
